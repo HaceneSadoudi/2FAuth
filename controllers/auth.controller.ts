@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import crypto from 'crypto'
 import { Prisma } from "@prisma/client";
 import { prisma } from "../server";
+import speakeasy from 'speakeasy'
+
 const Register = async (
     req: Request,
     res: Response,
@@ -74,3 +76,35 @@ const Login = async(
         });
     }
 }
+
+const GenerateOTP = async (req: Request, res: Response) => {
+    try {
+        const { user_id } = req.body
+        const { ascii, hex, base32, otpauth_url } = speakeasy.generateSecret({
+            issuer: 'sadoudi2019',
+            name: "admin@2fa.com",
+            length: 15
+        });
+
+        await prisma.user.update({
+            where: { id: user_id },
+            data: {
+                otp_ascii: ascii,
+                otp_auth_url: otpauth_url,
+                otp_base32: base32,
+                otp_hex: hex
+            }
+        });
+
+        res.status(200).json({
+            base32,
+            otpauth_url
+        });
+    } catch(error) {
+        res.status(500).json({
+            status: "error",
+            message: error.message
+        });
+    }
+}
+
