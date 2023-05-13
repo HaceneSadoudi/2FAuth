@@ -1,6 +1,6 @@
 # npm
 *.gz
-
+dev.db
 # Benchmarking
 benchmarks/graphs
 
