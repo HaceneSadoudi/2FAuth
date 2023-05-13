@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import express, { Request, Response } from "express";
 import cors from "cors";
 import morgan from "morgan";
+import authRoutes from "./routes/auth.route";
 
 export const prisma = new PrismaClient();
 const app = express();
@@ -25,6 +26,8 @@ async function main() {
     });
   });
 
+  // Register the API Routes
+  app.use("/api/auth", authRoutes);
 
   // Catch All
   app.all("*", (req: Request, res: Response) => {
