@@ -38,3 +38,39 @@ const Register = async (
         })
     }
 }
+
+const Login = async(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const { email, password } = req.body;
+
+        const user = await prisma.user.findUnique({
+            where: { email }
+        });
+
+        if(!user) {
+            return res.status(404).json({
+                status: "fail",
+                message: "No user with that email exists"
+            });
+        }
+
+        res.status(200).json({
+            status: "success",
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                otp_enabled: user.otp_enabled
+            }
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "error",
+            message: error.message
+        });
+    }
+}
