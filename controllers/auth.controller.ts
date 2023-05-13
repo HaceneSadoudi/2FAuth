@@ -108,3 +108,29 @@ const GenerateOTP = async (req: Request, res: Response) => {
     }
 }
 
+const VerifyOTP = async (req: Request, res: Response) => {
+    try {
+        const { user_id, token } = req.body
+
+        const user = await prisma.user.findUnique({ where: { id: user_id } });
+        const message = "Token is invalid or usr doesn't exist";
+        if(!user) {
+            return res.status(401).json({
+                status: "fail",
+                message
+            });
+        }
+
+        const verified = speakeasy.totp.verify({
+            secret: user.otp_base32!,
+            encoding: "base32",
+            token,
+            
+        });
+
+        if(!verified) {
+            return res.status(401).json({
+                status: "fail",
+                message
+            })
+        }
