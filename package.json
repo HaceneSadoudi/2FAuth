@@ -6,10 +6,10 @@
   "author": "Hacene Sadoudi <sadoudi2019@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node-dev --respawn --transpile-only --exit-child server.ts",
+    "start": "pm2 delete tfauth; pm2 start --name tfauth \"npx ts-node --transpile-only server.ts\"",
     "build": "tsc --build",
-    "start:prod": "NODE_ENV=production npm build && node ./dist/server.js",
-    "start:prod:pm2": "pm2 delete tfauth; pm2 start --name tfauth \"npx ts-node --transpile-only server.ts\"",
+    "start:dev": "ts-node-dev --respawn --transpile-only --exit-child server.ts",
+    "start:prod": "NODE_ENV=production npm run build && node ./dist/server.js",
     "db:migrate": "npx prisma migrate dev --name user-entity --create-only && npx prisma generate",
     "db:push": "npx prisma db push"
   },
