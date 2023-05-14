@@ -37,7 +37,7 @@ async function main() {
     });
   });
 
-  const PORT = 8000;
+  const PORT = process.env.PORT || 8000;
   app.listen(PORT, () => {
     console.info(`Server started on port: ${PORT}`);
   });
