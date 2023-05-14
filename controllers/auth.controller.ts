@@ -160,3 +160,10 @@ const VerifyOTP = async (req: Request, res: Response) => {
         })
     }
 }
+
+export default {
+    Register,
+    Login,
+    GenerateOTP,
+    VerifyOTP
+}
