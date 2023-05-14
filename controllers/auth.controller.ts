@@ -25,7 +25,7 @@ const Register = async (
             message: "Registered successfully"
         });
 
-    } catch(error) {
+    } catch(error: any) {
         if(error instanceof Prisma.PrismaClientKnownRequestError) {
             if(error.code === "P2002") {
                 return res.status(409).json({
@@ -69,7 +69,7 @@ const Login = async(
                 otp_enabled: user.otp_enabled
             }
         });
-    } catch (error) {
+    } catch (error: any) {
         res.status(500).json({
             status: "error",
             message: error.message
@@ -100,7 +100,7 @@ const GenerateOTP = async (req: Request, res: Response) => {
             base32,
             otpauth_url
         });
-    } catch(error) {
+    } catch(error: any) {
         res.status(500).json({
             status: "error",
             message: error.message
@@ -153,7 +153,7 @@ const VerifyOTP = async (req: Request, res: Response) => {
             }
         });
 
-    } catch(error) {
+    } catch(error: any) {
         res.status(500).json({
             status: "error",
             message: error.message
