@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only --exit-child server.ts",
+    "start:prod": "NODE_ENV=production tsc --build && node ./dist/server.js",
     "db:migrate": "npx prisma migrate dev --name user-entity --create-only && npx prisma generate",
     "db:push": "npx prisma db push"
   },
