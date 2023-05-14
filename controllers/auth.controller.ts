@@ -3,6 +3,7 @@ import crypto from 'crypto'
 import { Prisma } from "@prisma/client";
 import { prisma } from "../server";
 import speakeasy from 'speakeasy'
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 const Register = async (
     req: Request,
@@ -26,7 +27,7 @@ const Register = async (
         });
 
     } catch(error: any) {
-        if(error instanceof Prisma.PrismaClientKnownRequestError) {
+        if(error instanceof PrismaClientKnownRequestError) {
             if(error.code === "P2002") {
                 return res.status(409).json({
                     status: "fail",
