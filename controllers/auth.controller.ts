@@ -134,3 +134,29 @@ const VerifyOTP = async (req: Request, res: Response) => {
                 message
             })
         }
+
+        const updatedUser = await prisma.user.update({
+            where: { id: user_id },
+            data: {
+                otp_enabled: true,
+                otp_verified: true
+            }
+        });
+
+        res.status(200).json({
+            otp_verified: true,
+            user: {
+                id: updatedUser.id,
+                name: updatedUser.name,
+                email: updatedUser.email,
+                otp_enabled: updatedUser.otp_enabled
+            }
+        });
+
+    } catch(error) {
+        res.status(500).json({
+            status: "error",
+            message: error.message
+        })
+    }
+}
