@@ -7,7 +7,9 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only --exit-child server.ts",
-    "start:prod": "NODE_ENV=production tsc --build && node ./dist/server.js",
+    "build": "tsc --build",
+    "start:prod": "NODE_ENV=production npm build && node ./dist/server.js",
+    "start:prod:pm2": "pm2 delete tfauth; pm2 start --name tfauth \"npx ts-node --transpile-only server.ts\"",
     "db:migrate": "npx prisma migrate dev --name user-entity --create-only && npx prisma generate",
     "db:push": "npx prisma db push"
   },
@@ -26,6 +28,7 @@
     "@prisma/client": "^4.13.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "pm2": "^5.3.0",
     "speakeasy": "^2.0.0"
   }
 }
