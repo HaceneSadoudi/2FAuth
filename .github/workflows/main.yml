@@ -16,6 +16,5 @@ jobs:
 
       - name: Deploy changes
         run: |
-          # Replace this with your actual deployment commands
           npm install
           PORT=8000 npm run start
