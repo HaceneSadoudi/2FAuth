@@ -21,4 +21,4 @@ jobs:
 
       - name: Pull latest changes
         run: |
-          git pull
+          git pull origin main
