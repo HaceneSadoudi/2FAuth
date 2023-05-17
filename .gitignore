@@ -3,7 +3,7 @@
 dev.db
 # Benchmarking
 benchmarks/graphs
-.main.yml
+
 # ignore additional files using core.excludesFile
 # https://git-scm.com/docs/gitignore
 # Created by https://www.toptal.com/developers/gitignore/api/node
