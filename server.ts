@@ -22,7 +22,7 @@ async function main() {
   app.get("/api/check", (req: Request, res: Response) => {
     res.status(200).json({
       status: "success",
-      message: "Welcome to Two-Factor Authentication ✌️",
+      message: "Welcome to Two-Factor Authentication ✌️✌️✌️",
     });
   });
 
