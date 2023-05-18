@@ -201,10 +201,48 @@ const ValidateOTP = async (req: Request, res: Response) => {
         })
     }
 }
+
+const DisableOTP = async (req: Request, res: Response) => {
+    try {
+        const { user_id } = req.body
+        const user = await prisma.user.findUnique({ where: { id: user_id } })
+        
+        if(!user) {
+            res.status(401).json({
+                status: "fail",
+                message: "User doesn't exist"
+            });
+        }
+
+        const updatedUser = await prisma.user.update({
+            where: { id: user_id },
+            data: {
+                otp_enabled: false
+            }
+        });
+
+        res.status(200).json({
+            otp_disabled: true,
+            user: {
+                id: updatedUser.id,
+                name: updatedUser.name,
+                email: updatedUser.email,
+                otp_enabled: updatedUser.otp_enabled
+            }
+        })
+
+    } catch(error: any) {
+        res.status(500).json({
+            status: 'error',
+            message: error.message
+        })
+    }
+}
 export default {
     Register,
     Login,
     GenerateOTP,
     VerifyOTP,
-    ValidateOTP
+    ValidateOTP,
+    DisableOTP
 }
