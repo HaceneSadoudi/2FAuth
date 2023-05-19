@@ -8,7 +8,11 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted
+    strategy:
+      matrix:
+        runner: [runner-01, runner-02]
+  
+    runs-on: ${{ matrix.runner }}
 
     steps:
       - name: Checkout code
