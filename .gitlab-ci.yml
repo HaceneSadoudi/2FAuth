@@ -12,7 +12,7 @@ backend-build:
   artifacts:
     paths:
       - dist/
-    only:
+  only:
       - main
 
 frontend-build:
