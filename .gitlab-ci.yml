@@ -1,0 +1,36 @@
+stages:
+  - build
+  - test
+  - deploy
+
+
+backend-build:
+  stage: build
+  script:
+    - yarn install
+    - yarn run build:backend
+  artifacts:
+    paths:
+      - dist/
+    only:
+      - main
+
+frontend-build:
+  stage: build
+  script:
+    - cd web
+    - yarn install
+    - yarn run build
+  artifacts:
+    paths:
+      - web/dist
+  only:
+    - main
+
+test-backend:
+  stage: test
+  script:
+    - yarn install
+    - yarn test
+  only:
+    - main
