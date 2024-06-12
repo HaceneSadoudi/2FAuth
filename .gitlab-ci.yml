@@ -7,8 +7,8 @@ stages:
 backend-build:
   stage: build
   script:
-    - yarn install
-    - yarn run build:backend
+    - npm install
+    - npm run build:backend
   artifacts:
     paths:
       - dist/
@@ -19,8 +19,8 @@ frontend-build:
   stage: build
   script:
     - cd web
-    - yarn install
-    - yarn run build
+    - npm install
+    - npm run build
   artifacts:
     paths:
       - web/dist
@@ -30,7 +30,7 @@ frontend-build:
 test-backend:
   stage: test
   script:
-    - yarn install
-    - yarn test
+    - npm install
+    - npm test
   only:
     - main
