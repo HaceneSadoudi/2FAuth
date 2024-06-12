@@ -7,7 +7,7 @@ import swaggerJsdoc from "swagger-jsdoc"
 import swaggerUi from "swagger-ui-express"
 
 export const prisma = new PrismaClient();
-const app = express();
+export const app = express();
 
 async function main() {
   // Middleware

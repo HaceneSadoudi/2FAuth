@@ -1,4 +1,5 @@
 import express from 'express'
+import { body, validationResult } from 'express-validator'
 import authController from '../controllers/auth.controller'
 
 const router = express.Router();
@@ -37,6 +38,11 @@ const router = express.Router();
  *       400:
  *          description: Bad request
  */
+router.post("/register", [
+    body('name').notEmpty().withMessage('Name is required'),
+    body('email').isEmail().withMessage('Must be a valid email adderess'),
+    body('password').isLength({ min: 6}).withMessage('Password must be at least 8 characters long')
+], authController.Register);
 router.post("/login", authController.Login);
 router.post("/otp/generate", authController.GenerateOTP)
 router.post("/otp/verify", authController.VerifyOTP)
