@@ -6,6 +6,7 @@ stages:
 
 backend-build:
   stage: build
+  image: node:16
   script:
     - npm install
     - npm run build:backend
@@ -17,6 +18,7 @@ backend-build:
 
 frontend-build:
   stage: build
+  image: node:16
   script:
     - cd web
     - npm install
@@ -29,6 +31,7 @@ frontend-build:
 
 test-backend:
   stage: test
+  image: node:16
   script:
     - npm install
     - npm test
